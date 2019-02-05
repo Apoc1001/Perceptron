@@ -1,8 +1,8 @@
 package fr.jeremy.perceptrontest;
 
-/*FR:Ici un perceptron simple monocouche à 5 entrees. Il suffit de determiner les 4 entrées (le tableau x) et le programme calcule premierement la somme pondérée des entrée et des poids synapiques(le tableau w) et adaptes 
- * ensuite les poids synaptiques en fonctions du resultat attendu. On pourrait expliquer cela en disant que le programme programme pourrait etre capable d'adaptabilité en ce qui concerne ses informations. 
- * commencé à coder le :10/01/2019 
+/*FR:Ici un perceptron simple monocouche Ã  5 entrees. Il suffit de determiner les 4 entrÃ©es (le tableau x) et le programme calcule premierement la somme pondÃ©rÃ©e des entrÃ©e et des poids synapiques(le tableau w) et adaptes 
+ * ensuite les poids synaptiques en fonctions du resultat attendu. On pourrait expliquer cela en disant que le programme programme pourrait etre capable d'adaptabilitÃ© en ce qui concerne ses informations. 
+ * commencÃ© Ã  coder le :10/01/2019 
  * terminer le 28/01/2019 
  * 
  * pour me contacter :jeremy.krief22@gmail.com
@@ -27,82 +27,51 @@ public class Main {
 		
 		int x[]; x = new int [4];int x0;// = -1;
 		int w[]; w = new int [4];int w0;// = 2;
-		int wile=0;int i = 1;
-		boolean success;
 		
+		int iteration=1;int Etape=1;int i = 0,i1;//[0-3]
+		
+		int a =0;int m=0;
 		
 		int y,z,d = 0;
+		float PourcentageReussite = 0;float PourcentageErreur = 0;int CompteurErreur = 0;
 		
 		w[0]=w[1]=w[2]=w[3] = 0;
 		w0 = 2;
 		x0 = -1;
 		
-		while(wile<=16)
+		
+		
+
+		while(iteration<17)
 		{
 			
-			System.out.println("Entrées Perceptron:");
-			
-			//x1
-			System.out.println("");
-		System.out.println("X1 (0 / 1):");
-		Scanner scanf = new Scanner(System.in);
-		x[0] = scanf.nextInt();
+			System.out.println("EntrÃ©es Perceptron:");
 		
-		while (x[0] > 1 || x[0] < 0)
-		{
-			System.out.println("X1 (0 / 1):");
-			Scanner scanf1 = new Scanner(System.in);
-			x[0] = scanf1.nextInt();
-		}
-			 
-			//x2		
-		System.out.println("X2 (0 / 1):");
-		Scanner scanf2 = new Scanner(System.in);
-		x[1] = scanf2.nextInt();
-		
-		while (x[1] > 1 || x[1] < 0)
-		{
-			System.out.println("X2 (0 / 1):");
-			Scanner scanf2r = new Scanner(System.in);
-			x[1] = scanf2r.nextInt();
-		}
-			//x3
-		System.out.println("X3 (0 / 1):");
-		Scanner scanf3 = new Scanner(System.in);
-		x[2] = scanf.nextInt();
-		
-		while (x[2] > 1 || x[2] < 0)
-		{
-			System.out.println("X3 (0 / 1):");
-			Scanner scanf3r = new Scanner(System.in);
-			x[2] = scanf3r.nextInt();
-		}
-		
-			//x4
-		System.out.println("X4 (0 / 1):");
-		Scanner scanf4 = new Scanner(System.in);
-		x[3] = scanf4.nextInt();
-		
-		while (x[3] > 1 || x[3] < 0)
-		{
-			System.out.println("X4 (0 / 1):");
-			Scanner scanf4r = new Scanner(System.in);
-			x[3] = scanf4r.nextInt();
-	  	}
-		System.out.println("d (0 / 1):");
-		Scanner scanf5 = new Scanner(System.in);
-		d = scanf5.nextInt();
-		
-		while (d > 1 || d < 0)
-		{
-			System.out.println("d (0 / 1):");
-			Scanner scanf5r = new Scanner(System.in);
-			d = scanf5r.nextInt();
-	  	}
+			while(a < 4)
+			{
+				i1 = i +1;
+				System.out.println("");
+				System.out.print("X"+i1+"(0 / 1):");
+				Scanner scanf = new Scanner(System.in);
+				x[i] = scanf.nextInt();
+				
+				while (x[i] > 1 || x[i] < 0)
+				{
+					System.out.print("X"+i1+"(0 / 1):");
+					@SuppressWarnings("resource")
+					Scanner scanf1 = new Scanner(System.in);
+					x[i] = scanf1.nextInt();
+				}
+				a++;i++;
+				 
+			}
 		
 		
 		
 		y =  x[0]*w[0] + x[1]*w[1] + x[2]*w[2] + x[3]*w[3] + x0*w0;
+		
+		if(x[0]==1 && x[1] == 0 && x[2]==0 && x[3]==1) {d = 1;}
+		else {d=0;}
 		
 			
 			if(y >= 0) 
@@ -115,11 +84,13 @@ public class Main {
 			z = 0;
 			}
 		
-			if(z == d)
+			
+			if(d==z)
 			{
-				success = true;
+				System.out.println("s:"+iteration+"," + "E:"+Etape + " entrÃ©e:"+x[0]+","+x[1]+","+x[2]+","+x[3]+","+x0+" z:"+z+", d:"+d+", poids: "+w[0]+""+w[1]+""+w[2]+""+w[3]+""+w0);
+				
 			}
-			else if(d!=z)	
+			else if(d!=z)
 			{
 				
 				w[0]= w[0] + (d-z)*x[0];	
@@ -127,23 +98,31 @@ public class Main {
 				w[2]= w[2] + (d-z)*x[2];
 				w[3]= w[3] + (d-z)*x[3];
 				w0= w0 + (d-z)*x0;
-			}
-			
-			
-			if(d==z)
-			{
-				System.out.println("Step:"+i+"/16"+" entrée:"+x[0]+","+x[1]+","+x[2]+","+x[3]+","+x0+" z:"+z+", d:"+d+", poids: "+w[0]+""+w[1]+""+w[2]+""+w[3]+""+w0);
+				CompteurErreur++;
+				
+				System.out.println("s:"+iteration+"," + "E"+Etape +"  entrÃ©e:"+x[0]+","+x[1]+","+x[2]+","+x[3]+","+x0+" z:"+z+", d:"+d+", poids: "+w[0]+""+w[1]+""+w[2]+""+w[3]+""+w0);
 				
 			}
-			else if(d!=z)
+			a=0;i=0;
+			iteration++;
+			
+			if(iteration == 17)
 			{
-				System.out.println("Step:"+i+"/16"+" entrée:"+x[0]+","+x[1]+","+x[2]+","+x[3]+","+x0+" z:"+z+", d:"+d+", poids: "+w[0]+""+w[1]+""+w[2]+""+w[3]+""+w0);
 				
-			}
-			i++;
-			}
+			System.out.println("");
+			System.out.println("Fin.");
+			System.out.println("Erreur(s):"+CompteurErreur);
+			PourcentageErreur = (float)CompteurErreur / 16 *100;
+			PourcentageReussite = 100 - PourcentageErreur;
+			System.out.println("Reussie Ã  "+PourcentageReussite+"%");
+			Etape++;iteration =1 ;
+			}	
+			
 		
-
+		
+		
 	}
+		
+ }
 
 }
