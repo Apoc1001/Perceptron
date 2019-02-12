@@ -44,7 +44,7 @@ public class Main {
 
 		while(iteration<17)
 		{
-			
+			System.out.println();
 			System.out.println("Entrées Perceptron:");
 		
 			while(a < 4)
@@ -115,7 +115,7 @@ public class Main {
 			PourcentageErreur = (float)CompteurErreur / 16 *100;
 			PourcentageReussite = 100 - PourcentageErreur;
 			System.out.println("Reussie à "+PourcentageReussite+"%");
-			Etape++;iteration =1 ;
+			Etape++;iteration =1;CompteurErreur = 0;
 			}	
 			
 		
